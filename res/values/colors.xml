@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+   
+    <color name="main">#DDDDDD</color>
+    <color name="album_up">#F7F7F7</color>
+    <color name="album_down">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    
+    <color name="album_title">#333333</color>
+    <color name="album_meta">#ACACAC</color>
+    <color name="album_intro">#808080</color>
+
+    <color name="album_title_1">#000000</color>
+    <color name="album_meta_1">#aaaaaa</color>
+    <color name="album_intro_1">#7d7d7d</color>
+    
+    <color name="fade_black">#3F3D39</color>
+    <color name="fade_black_2">#767676</color>
+
+</resources>
