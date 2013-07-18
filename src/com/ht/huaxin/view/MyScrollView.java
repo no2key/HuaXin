@@ -23,7 +23,7 @@ public class MyScrollView extends ScrollView {
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		// TODO Auto-generated method stub
 		// return super.onInterceptTouchEvent(ev);
-		Log.e("debug", "onInterceptTouchEvent");
+//		Log.e("debug", "onInterceptTouchEvent");
 		if (shaderView.isShowing()) {
 			return false;
 		} else {
@@ -34,8 +34,9 @@ public class MyScrollView extends ScrollView {
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		// TODO Auto-generated method stub
-		Log.e("debug",
-				"MyScrollView  ontouch" + "  showing:" + shaderView.isShowing());
+		Log.e("debug", "ScrollView  onTouch "+ev.getAction());
+//		Log.e("debug",
+//				"MyScrollView  ontouch" + "  showing:" + shaderView.isShowing());
 		if (shaderView.isShowing() == true) {
 			return true;
 		} else {

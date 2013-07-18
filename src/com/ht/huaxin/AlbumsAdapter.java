@@ -27,6 +27,11 @@ public class AlbumsAdapter extends BaseAdapter {
 	private Context context;
 	private List<Album> albums;
 
+	public AlbumsAdapter(Context context) {
+		super();
+		this.context = context;
+	}
+
 	public AlbumsAdapter(Context context, List<Album> albums) {
 		super();
 		this.context = context;
@@ -43,6 +48,9 @@ public class AlbumsAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
+		if (albums == null) {
+			return 0;
+		}
 		return albums.size();
 	}
 
@@ -112,6 +120,14 @@ public class AlbumsAdapter extends BaseAdapter {
 				}
 			}
 		}
+	}
+
+	public List<Album> getAlbums() {
+		return albums;
+	}
+
+	public void setAlbums(List<Album> albums) {
+		this.albums = albums;
 	}
 
 }

@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.ShareActionProvider;
 
 /**
  * @author retryu E-mail:ruanchenyugood@gmail.com
@@ -20,26 +21,29 @@ public class MyViewPaper extends ViewPager {
 	}
 
 	@Override
-	public boolean onInterceptTouchEvent(MotionEvent ev) {
+	public boolean dispatchTouchEvent(MotionEvent ev) {
 		// TODO Auto-generated method stub
-		if (shaderView.isShowing()) {
-			return false;
-		} else {
-			return super.onInterceptTouchEvent(ev);
-		}
+		boolean result = super.dispatchTouchEvent(ev);
+		Log.e("debug dispatchTouchEvent ", "result:" + result);
+		return result;
 	}
-
-	@Override
+  
 	public boolean onTouchEvent(MotionEvent ev) {
 		// TODO Auto-generated method stub
+		boolean result = super.onTouchEvent(ev);
 		Log.e("debug",
-				"MyScrollView  ontouch" + "  showing:" + shaderView.isShowing());
-		if (shaderView.isShowing() == true) {
-			return true;
-		} else {
-			return super.onTouchEvent(ev);
-		}
+				"MyViewPaper  ontouch" + "  showing:" + shaderView.isShowing()
+						+ " result:" + result);
+		return result;
+		// if (shaderView.isShowing() == true) {
+		// Log.e("debug",
+		// "MyViewPaper  ontouch" + "  showing:"
+		// + shaderView.isShowing());
 		// return true;
+		// } else {
+		// return super.onTouchEvent(ev);
+		// }
+
 	}
 
 	public ShaderView getShaderView() {
@@ -49,7 +53,5 @@ public class MyViewPaper extends ViewPager {
 	public void setShaderView(ShaderView s) {
 		this.shaderView = s;
 	}
-	
-	
 
 }

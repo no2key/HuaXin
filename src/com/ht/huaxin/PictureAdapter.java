@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -49,6 +50,7 @@ public class PictureAdapter extends PagerAdapter {
 	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 	private Context context;
 	private List<Picture> pictures;
+	private List<View> views;
 	Bitmap imageLoaded;
 	String fileName;
 	private View currentView;
@@ -60,6 +62,7 @@ public class PictureAdapter extends PagerAdapter {
 		super();
 		this.context = context;
 		this.pictures = pictures;
+		views = new ArrayList<View>();
 	}
 
 	public static class ItemView {
@@ -82,7 +85,7 @@ public class PictureAdapter extends PagerAdapter {
 		View imageLayout = createPageItemView();
 		TextView picture_index = (TextView) imageLayout
 				.findViewById(R.id.picture_index);
-
+		views.add(imageLayout);
 		MyScrollView scrollView = (MyScrollView) imageLayout
 				.findViewById(R.id.ScrollView);
 		final ShaderView image = (ShaderView) imageLayout
@@ -109,22 +112,23 @@ public class PictureAdapter extends PagerAdapter {
 		fileName = picture.getImage_url();
 
 		scrollView.setShaderView(image);
-		myViewPaper.setShaderView(image);
-
+		if (position == 1) {
+			myViewPaper.setShaderView(image);
+		}
 		Log.i("pic", "pic name " + fileName);
 		Log.i("pic", "pic position" + position);
-//		image.setOnLongClickListener(new OnLongClickListener() {
-//			@Override
-//			public boolean onLongClick(View v) {
-//				Log.e("debug", "onLongclick");
-//				image.setShowing(true);
-//				image.invalidate();
-//
-//				image.postInvalidate();
-//				image.invalidate();
-//				return false;
-//			}
-//		});
+		// image.setOnLongClickListener(new OnLongClickListener() {
+		// @Override
+		// public boolean onLongClick(View v) {
+		// Log.e("debug", "onLongclick");
+		// image.setShowing(true);
+		// image.invalidate();
+		//
+		// image.postInvalidate();
+		// image.invalidate();
+		// return false;
+		// }
+		// });
 
 		imageLoader.displayImage(
 				Constants.Image_URL_PREFIX + picture.getImage_url()
@@ -192,7 +196,7 @@ public class PictureAdapter extends PagerAdapter {
 						// @Override
 						// public void onClick(View v) {
 						// save_pic_to_galley(loadedImage,
-						// pictures.get(position).getImage_url());
+						// pictures.gKJet(position).getImage_url());
 						// int p = pictures.get(position).getId();
 						// Log.e("debug", "position  " + p);
 						// }
@@ -298,15 +302,23 @@ public class PictureAdapter extends PagerAdapter {
 		this.myViewPaper = myViewPaper;
 	}
 
+	public List<View> getViews() {
+		return views;
+	}
+
+	public void setViews(List<View> views) {
+		this.views = views;
+	}
+
 	class UiHandler extends Handler {
 		@Override
 		public void dispatchMessage(Message msg) {
 			// TODO Auto-generated method stub
 			super.dispatchMessage(msg);
-			int  what=msg.what;
+			int what = msg.what;
 			switch (what) {
 			case 1:
-				
+
 				break;
 
 			default:

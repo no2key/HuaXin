@@ -1,6 +1,7 @@
 package com.ht.huaxin;
 
 import java.lang.reflect.Type;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -22,15 +23,22 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ht.huaxin.database.dao.OrmDateBaseHelper;
+import com.ht.huaxin.database.dao.interfaze.AlbumDao;
 import com.ht.huaxin.entity.Album;
 import com.ht.huaxin.http.HttpUtils;
 import com.ht.huaxin.image.DisplayUtil;
 import com.ht.huaxin.utils.Constants;
 
-public class AlbumsActivity extends Activity implements Callback {
+public class AlbumsActivity extends CommonActivity implements Callback {
 	ListView albumsView;
 	AlbumsAdapter albumsAdapter;
 	Handler albumHandler;
+	private static final int MSG_GET_NET = 0;
+	private static final int MSG_GET_LOCAL = 1;
+	private static final int MSG_ERROR = 2;
+	private OrmDateBaseHelper ormDateBaseHelper;
+	private AlbumDao albumDao;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +51,33 @@ public class AlbumsActivity extends Activity implements Callback {
 		albumsView.setOnItemClickListener(albumClicked);
 
 		AlbumsLoadThread loadThread = new AlbumsLoadThread();
-		new Thread(loadThread).start();
+		ormDateBaseHelper = getOrmDateBaseHelper();
+		albumDao = ormDateBaseHelper.getAlbumDao();
+		albumsAdapter = new AlbumsAdapter(this);
+		albumsView.setAdapter(albumsAdapter);
+		
+//		new Thread(loadThread).start();
+
+		initLocal();
+	}
+
+	private void initLocal() {
+		new Thread() {
+			public void run() {
+				try {
+					List<Album> albums = albumDao.queryForAll();
+					Message msg = new Message();
+					msg.what = MSG_GET_LOCAL;
+					msg.obj = albums;
+					albumHandler.sendMessage(msg);
+
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			};
+		}.start();
 	}
 
 	ListView.OnItemClickListener albumClicked = new OnItemClickListener() {
@@ -81,13 +115,13 @@ public class AlbumsActivity extends Activity implements Callback {
 				List<Album> albums = gson.fromJson(jsonArray.toString(), type);
 				Message msg = Message.obtain();
 				msg.obj = albums;
-				msg.arg1 = 0;
+				msg.what = MSG_GET_NET;
 				AlbumsActivity.this.albumHandler.sendMessage(msg);
 			} catch (Exception e) {
 				e.printStackTrace();
 				Log.d("json", e.toString());
 				Message msg = Message.obtain();
-				msg.arg1 = 1;
+				msg.what = MSG_ERROR;
 				AlbumsActivity.this.albumHandler.sendMessage(msg);
 			}
 
@@ -96,14 +130,37 @@ public class AlbumsActivity extends Activity implements Callback {
 
 	@Override
 	public boolean handleMessage(Message msg) {
-		if (msg.arg1 == 0) {
-			albumsAdapter = new AlbumsAdapter(AlbumsActivity.this,
-					(List<Album>) msg.obj);
-			albumsView.setAdapter(albumsAdapter);
-		} else {
+
+		int what = msg.what;
+		List<Album> albums;
+		switch (what) {
+		case MSG_GET_NET:
+			albums = (List<Album>) msg.obj;
+			// albumsAdapter = new AlbumsAdapter(AlbumsActivity.this, albums);
+
+			albumsAdapter.setAlbums(albums);
+			albumDao.batchInsert(albums);
+			break;
+
+		case MSG_GET_LOCAL:
+			albums = (List<Album>) msg.obj;
+			albumsAdapter.setAlbums(albums);
+			albumsAdapter.notifyDataSetChanged();
+			break;
+		case MSG_ERROR:
 			Toast.makeText(AlbumsActivity.this, "网络连接异常", Toast.LENGTH_SHORT)
 					.show();
+			break;
 		}
+
+		// if (msg.arg1 == 0) {
+		// albumsAdapter = new AlbumsAdapter(AlbumsActivity.this,
+		// (List<Album>) msg.obj);
+		// albumsView.setAdapter(albumsAdapter);
+		// } else {
+		// Toast.makeText(AlbumsActivity.this, "网络连接异常", Toast.LENGTH_SHORT)
+		// .show();
+		// }
 
 		return false;
 	}

@@ -67,6 +67,7 @@ public class ShaderView extends ImageView {
 			Log.e("debug", "ShaderView onToucch:" + "  isShowing:" + isShowing);
 			return super.onTouchEvent(event);
 		}
+		Log.d("d", "2:" + this);
 		final int x = (int) event.getX();
 		final int y = (int) event.getY();
 		int action = event.getAction();
@@ -83,19 +84,19 @@ public class ShaderView extends ImageView {
 				return true;
 			}
 
-			matrix.setTranslate( 3*RADIUS - x, 3*RADIUS - y);
+			matrix.setTranslate(3 * RADIUS - x, 3 * RADIUS - y);
 			matrix.postScale(2.0f, 2.0f);
 			drawable.getPaint().getShader().setLocalMatrix(matrix);
 			// bounds，就是那个圆的外切矩形
 
-//			if (x < 4 * RADIUS) {
-//				drawable.setBounds(x, y - RADIUS * 4, x + RADIUS * 4, y);
-//			} 
-//				else if (y < 4 * RADIUS) {
-//				drawable.setBounds(x - RADIUS * 4, y, x, y + RADIUS * 4);
-//			} else {
-				drawable.setBounds(x - RADIUS * 4, y - RADIUS * 4, x, y);
-//			}
+			// if (x < 4 * RADIUS) {
+			// drawable.setBounds(x, y - RADIUS * 4, x + RADIUS * 4, y);
+			// }
+			// else if (y < 4 * RADIUS) {
+			// drawable.setBounds(x - RADIUS * 4, y, x, y + RADIUS * 4);
+			// } else {
+			drawable.setBounds(x - RADIUS * 4, y - RADIUS * 4, x, y);
+			// }
 			invalidate();
 			break;
 		case MotionEvent.ACTION_UP:

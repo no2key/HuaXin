@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,7 +29,7 @@ public class PictureActivity extends Activity implements Callback {
 	private String albumTitle;
 	private static final String STATE_POSITION = "STATE_POSITION";
 
-	MyViewPaper  pager;
+	MyViewPaper pager;
 	PictureAdapter pictureAdapter;
 
 	Handler pictureHandler;
@@ -40,14 +40,37 @@ public class PictureActivity extends Activity implements Callback {
 		setContentView(R.layout.activity_album);
 		pictureHandler = new Handler(this);
 
-		pager = (MyViewPaper ) findViewById(R.id.album_pager);
+		pager = (MyViewPaper) findViewById(R.id.album_pager);
 		albumID = getIntent().getExtras().getString(Constants.EXTRA_Album_id);
 		albumTitle = getIntent().getExtras().getString(
 				Constants.EXTRA_Album_title);
 
+		pager.setOnPageChangeListener(new OnPageChangeListener() {
+			@Override
+			public void onPageSelected(int postiion) {
+				View view = pictureAdapter.getCurrentView();
+				ShaderView shaderView = (ShaderView) view
+						.findViewById(R.id.picture_img);
+				pager.setShaderView(shaderView);
+				Log.e("debug", "" + shaderView);
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 		PicturesLoadThread thread = new PicturesLoadThread();
 		new Thread(thread).start();
-		
+
 	}
 
 	@Override
