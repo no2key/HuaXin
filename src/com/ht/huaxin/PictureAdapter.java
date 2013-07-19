@@ -88,17 +88,16 @@ public class PictureAdapter extends PagerAdapter {
 		views.add(imageLayout);
 		MyScrollView scrollView = (MyScrollView) imageLayout
 				.findViewById(R.id.ScrollView);
-		final ShaderView image = (ShaderView) imageLayout
+		final ImageView image = (ImageView) imageLayout
 				.findViewById(R.id.picture_img);
 		TextView name = (TextView) imageLayout.findViewById(R.id.picture_name);
 		TextView review = (TextView) imageLayout
 				.findViewById(R.id.picture_review);
 		// final Button download = (Button) imageLayout
 		// .findViewById(R.id.);
-
+  
 		final ProgressBar spinner = (ProgressBar) imageLayout
 				.findViewById(R.id.loading);
-
 		final Picture picture = pictures.get(position);
 
 		picture_index.setText((position + 1) + "/" + getCount());
@@ -111,10 +110,10 @@ public class PictureAdapter extends PagerAdapter {
 		review.setText(picture.getReview());
 		fileName = picture.getImage_url();
 
-		scrollView.setShaderView(image);
-		if (position == 1) {
-			myViewPaper.setShaderView(image);
-		}
+//		scrollView.setShaderView(image);
+//		if (position == 1) {
+//			myViewPaper.setShaderView(image);
+//		}
 		Log.i("pic", "pic name " + fileName);
 		Log.i("pic", "pic position" + position);
 		// image.setOnLongClickListener(new OnLongClickListener() {
@@ -175,18 +174,18 @@ public class PictureAdapter extends PagerAdapter {
 								/ (float) loadedImage.getWidth();
 						int height = (int) (loadedImage.getHeight() * scale);
 
-						Bitmap mBitmap = Bitmap.createScaledBitmap(loadedImage,
-								width, height, true);
-
-						image.config(mBitmap);
-						image.setImageBitmap(mBitmap);
+						// Bitmap mBitmap =
+						// Bitmap.createScaledBitmap(loadedImage,
+						// width, height, true);
+						// image.config(loadedImage);
+						image.setImageBitmap(loadedImage);
 						image.setOnLongClickListener(new OnLongClickListener() {
 
 							@Override
 							public boolean onLongClick(View v) {
 								// TODO Auto-generated method stub
 								Log.e("debug", "onLongClick");
-								image.setShowing(true);
+//								image.setShowing(true);
 								image.invalidate();
 								return false;
 							}

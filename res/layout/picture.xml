@@ -48,7 +48,7 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <com.ht.huaxin.view.ShaderView
+        <ImageView
             android:id="@+id/picture_img"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

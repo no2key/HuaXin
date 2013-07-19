@@ -2,7 +2,7 @@
 <resources>
 
    
-    <color name="main">#DDDDDD</color>
+    <color name="main">#ccc</color>
     <color name="album_up">#F7F7F7</color>
     <color name="album_down">#FFFFFF</color>
     <color name="white">#FFFFFF</color>

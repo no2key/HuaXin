@@ -20,31 +20,31 @@ public class MyViewPaper extends ViewPager {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public boolean dispatchTouchEvent(MotionEvent ev) {
-		// TODO Auto-generated method stub
-		boolean result = super.dispatchTouchEvent(ev);
-		Log.e("debug dispatchTouchEvent ", "result:" + result);
-		return result;
-	}
-  
-	public boolean onTouchEvent(MotionEvent ev) {
-		// TODO Auto-generated method stub
-		boolean result = super.onTouchEvent(ev);
-		Log.e("debug",
-				"MyViewPaper  ontouch" + "  showing:" + shaderView.isShowing()
-						+ " result:" + result);
-		return result;
-		// if (shaderView.isShowing() == true) {
-		// Log.e("debug",
-		// "MyViewPaper  ontouch" + "  showing:"
-		// + shaderView.isShowing());
-		// return true;
-		// } else {
-		// return super.onTouchEvent(ev);
-		// }
-
-	}
+//	@Override
+//	public boolean dispatchTouchEvent(MotionEvent ev) {
+//		// TODO Auto-generated method stub
+//		boolean result = super.dispatchTouchEvent(ev);
+//		Log.e("debug dispatchTouchEvent ", "result:" + result);
+//		return result;
+//	}
+//  
+//	public boolean onTouchEvent(MotionEvent ev) {
+//		// TODO Auto-generated method stub
+//		boolean result = super.onTouchEvent(ev);
+//		Log.e("debug",
+//				"MyViewPaper  ontouch" + "  showing:" + shaderView.isShowing()
+//						+ " result:" + result);
+//		return result;
+//		// if (shaderView.isShowing() == true) {
+//		// Log.e("debug",
+//		// "MyViewPaper  ontouch" + "  showing:"
+//		// + shaderView.isShowing());
+//		// return true;
+//		// } else {
+//		// return super.onTouchEvent(ev);
+//		// }
+//
+//	}
 
 	public ShaderView getShaderView() {
 		return shaderView;

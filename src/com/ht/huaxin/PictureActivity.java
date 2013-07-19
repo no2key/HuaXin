@@ -48,11 +48,11 @@ public class PictureActivity extends Activity implements Callback {
 		pager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
 			public void onPageSelected(int postiion) {
-				View view = pictureAdapter.getCurrentView();
-				ShaderView shaderView = (ShaderView) view
-						.findViewById(R.id.picture_img);
-				pager.setShaderView(shaderView);
-				Log.e("debug", "" + shaderView);
+		 		View view = pictureAdapter.getCurrentView();
+//				ShaderView shaderView = (ShaderView) view
+//						.findViewById(R.id.picture_img);
+//				pager.setShaderView(shaderView);
+//				Log.e("debug", "" + shaderView);
 			}
 
 			@Override

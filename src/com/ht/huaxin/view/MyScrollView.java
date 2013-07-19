@@ -19,31 +19,31 @@ public class MyScrollView extends ScrollView {
 		// TODO Auto-generated constructor stub
 	}
   
-	@Override
-	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		// TODO Auto-generated method stub
-		// return super.onInterceptTouchEvent(ev);
-//		Log.e("debug", "onInterceptTouchEvent");
-		if (shaderView.isShowing()) {
-			return false;
-		} else {
-			return super.onInterceptTouchEvent(ev);
-		}
-	}
-
-	@Override
-	public boolean onTouchEvent(MotionEvent ev) {
-		// TODO Auto-generated method stub
-		Log.e("debug", "ScrollView  onTouch "+ev.getAction());
-//		Log.e("debug",
-//				"MyScrollView  ontouch" + "  showing:" + shaderView.isShowing());
-		if (shaderView.isShowing() == true) {
-			return true;
-		} else {
-			return super.onTouchEvent(ev);
-		}
-		// return true;
-	}
+//	@Override
+//	public boolean onInterceptTouchEvent(MotionEvent ev) {
+//		// TODO Auto-generated method stub
+//		// return super.onInterceptTouchEvent(ev);
+////		Log.e("debug", "onInterceptTouchEvent");
+//		if (shaderView.isShowing()) {
+//			return false;
+//		} else {
+//			return super.onInterceptTouchEvent(ev);
+//		}
+//	}
+//
+//	@Override
+//	public boolean onTouchEvent(MotionEvent ev) {
+//		// TODO Auto-generated method stub
+//		Log.e("debug", "ScrollView  onTouch "+ev.getAction());
+////		Log.e("debug",
+////				"MyScrollView  ontouch" + "  showing:" + shaderView.isShowing());
+//		if (shaderView.isShowing() == true) {
+//			return true;
+//		} else {
+//			return super.onTouchEvent(ev);
+//		}
+//		// return true;
+//	}
 
 	public ShaderView getShaderView() {
 		return shaderView;

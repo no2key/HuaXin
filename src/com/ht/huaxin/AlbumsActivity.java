@@ -21,6 +21,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.cuubonandroid.sugaredlistanimations.SpeedScrollListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ht.huaxin.database.dao.OrmDateBaseHelper;
@@ -39,6 +40,7 @@ public class AlbumsActivity extends CommonActivity implements Callback {
 	private static final int MSG_ERROR = 2;
 	private OrmDateBaseHelper ormDateBaseHelper;
 	private AlbumDao albumDao;
+	private SpeedScrollListener listener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +55,11 @@ public class AlbumsActivity extends CommonActivity implements Callback {
 		AlbumsLoadThread loadThread = new AlbumsLoadThread();
 		ormDateBaseHelper = getOrmDateBaseHelper();
 		albumDao = ormDateBaseHelper.getAlbumDao();
-		albumsAdapter = new AlbumsAdapter(this);
+		listener = new SpeedScrollListener();
+		albumsAdapter = new AlbumsAdapter(this, listener);
 		albumsView.setAdapter(albumsAdapter);
-		
-//		new Thread(loadThread).start();
+
+		new Thread(loadThread).start();
 
 		initLocal();
 	}
@@ -139,10 +142,12 @@ public class AlbumsActivity extends CommonActivity implements Callback {
 			// albumsAdapter = new AlbumsAdapter(AlbumsActivity.this, albums);
 
 			albumsAdapter.setAlbums(albums);
-			albumDao.batchInsert(albums);
+			albumsAdapter.notifyDataSetChanged();
+//			albumDao.batchInsert(albums);
 			break;
 
 		case MSG_GET_LOCAL:
+			Log.e("debug", "local");
 			albums = (List<Album>) msg.obj;
 			albumsAdapter.setAlbums(albums);
 			albumsAdapter.notifyDataSetChanged();
