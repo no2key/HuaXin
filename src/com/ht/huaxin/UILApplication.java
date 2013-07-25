@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.StrictMode;
 import android.util.Log;
 
+import com.nostra13.example.universalimageloader.downloader.ExtendedImageDownloader;
 import com.ht.huaxin.database.dao.OrmDateBaseHelper;
 import com.ht.huaxin.utils.Constants.Config;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -35,16 +36,17 @@ public class UILApplication extends Application {
 	}
 
 	public static void initImageLoader(Context context) {
-		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
-				context).threadPriority(Thread.NORM_PRIORITY - 2)
-				.denyCacheImageMultipleSizesInMemory()
-				.discCacheFileNameGenerator(new Md5FileNameGenerator())
-				.tasksProcessingOrder(QueueProcessingType.LIFO).enableLogging() // Not
-																				// necessary
-																				// in
-																				// common
-				.build();
-		ImageLoader.getInstance().init(config);
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+		.threadPriority(Thread.NORM_PRIORITY - 2)
+		.memoryCacheSize(2 * 1024 * 1024) // 2 Mb
+		.denyCacheImageMultipleSizesInMemory()
+		.discCacheFileNameGenerator(new Md5FileNameGenerator())
+		.imageDownloader(new ExtendedImageDownloader(getApplicationContext()))
+		.tasksProcessingOrder(QueueProcessingType.LIFO)
+		.enableLogging() // Not necessary in common
+		.build();
+	// Initialize ImageLoader with configuration.
+	ImageLoader.getInstance().init(config);
 	}
 
 	public OrmDateBaseHelper getOrmDateBaseHelper() {

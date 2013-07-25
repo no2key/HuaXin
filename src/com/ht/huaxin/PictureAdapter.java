@@ -43,6 +43,7 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
@@ -103,7 +104,10 @@ public class PictureAdapter extends PagerAdapter {
 		picture_index.setText((position + 1) + "/" + getCount());
 		DisplayImageOptions options = new DisplayImageOptions.Builder()
 				.showStubImage(R.drawable.ic_stub)
+				.bitmapConfig(Bitmap.Config.RGB_565)
+				.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
 				.showImageForEmptyUri(R.drawable.ic_empty)
+				.displayer(new FadeInBitmapDisplayer(300))
 				.showImageOnFail(R.drawable.ic_error).cacheInMemory()
 				.cacheOnDisc().build();
 		name.setText(picture.getName());
@@ -169,27 +173,27 @@ public class PictureAdapter extends PagerAdapter {
 							View view, final Bitmap loadedImage) {
 						spinner.setVisibility(View.GONE);
 						Log.i("pic", "imageUri " + imageUri);
-						int width = DisplayUtil.getWidth();
-						float scale = (float) width
-								/ (float) loadedImage.getWidth();
-						int height = (int) (loadedImage.getHeight() * scale);
+//						int width = DisplayUtil.getWidth();
+//						float scale = (float) width
+//								/ (float) loadedImage.getWidth();
+//						int height = (int) (loadedImage.getHeight() * scale);
 
 						// Bitmap mBitmap =
 						// Bitmap.createScaledBitmap(loadedImage,
 						// width, height, true);
 						// image.config(loadedImage);
-						image.setImageBitmap(loadedImage);
-						image.setOnLongClickListener(new OnLongClickListener() {
-
-							@Override
-							public boolean onLongClick(View v) {
-								// TODO Auto-generated method stub
-								Log.e("debug", "onLongClick");
-//								image.setShowing(true);
-								image.invalidate();
-								return false;
-							}
-						});
+//						image.setImageBitmap(loadedImage);
+//						image.setOnLongClickListener(new OnLongClickListener() {
+//
+//							@Override
+//							public boolean onLongClick(View v) {
+//								// TODO Auto-generated method stub
+//								Log.e("debug", "onLongClick");
+////								image.setShowing(true);
+//								image.invalidate();
+//								return false;
+//							}
+//						});
 
 						// download.setOnClickListener(new OnClickListener() {
 						// @Override
