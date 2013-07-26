@@ -7,7 +7,7 @@ import android.os.StrictMode;
 import android.util.Log;
 
 import com.ht.huaxin.database.dao.OrmDateBaseHelper;
-import com.ht.huaxin.utils.Constants.Config;
+import com.ht.huaxin.utils.Constant.Config;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

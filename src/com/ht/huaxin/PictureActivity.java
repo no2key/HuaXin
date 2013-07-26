@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ht.huaxin.entity.Picture;
 import com.ht.huaxin.http.HttpUtils;
-import com.ht.huaxin.utils.Constants;
+import com.ht.huaxin.utils.Constant;
 import com.ht.huaxin.view.MyViewPaper;
 import com.ht.huaxin.view.ShaderView;
 
@@ -41,9 +41,9 @@ public class PictureActivity extends Activity implements Callback {
 		pictureHandler = new Handler(this);
 
 		pager = (MyViewPaper) findViewById(R.id.album_pager);
-		albumID = getIntent().getExtras().getString(Constants.EXTRA_Album_id);
+		albumID = getIntent().getExtras().getString(Constant.EXTRA_Album_id);
 		albumTitle = getIntent().getExtras().getString(
-				Constants.EXTRA_Album_title);
+				Constant.EXTRA_Album_title);
 
 		pager.setOnPageChangeListener(new OnPageChangeListener() {
 			@Override
@@ -92,7 +92,7 @@ public class PictureActivity extends Activity implements Callback {
 	class PicturesLoadThread implements Runnable {
 		public void run() {
 			try {
-				String url = Constants.PICTURE_URL_PREFIX + albumID;
+				String url = Constant.PICTURE_URL_PREFIX + albumID;
 				JSONObject json = HttpUtils.get(url);
 				Log.i("debug", json.toString());
 				JSONArray jsonArray = json.getJSONArray("entries");

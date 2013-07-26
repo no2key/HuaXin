@@ -1,5 +1,5 @@
 package com.ht.huaxin;
-
+  
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,24 +21,18 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ht.huaxin.entity.Picture;
-import com.ht.huaxin.image.DisplayUtil;
-import com.ht.huaxin.utils.Constants;
+import com.ht.huaxin.utils.Constant;
 import com.ht.huaxin.view.MyScrollView;
 import com.ht.huaxin.view.MyViewPaper;
-import com.ht.huaxin.view.ShaderView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -56,6 +50,7 @@ public class PictureAdapter extends PagerAdapter {
 	String fileName;
 	private View currentView;
 	private MyViewPaper myViewPaper;
+	private DisplayImageOptions options;
 
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -64,6 +59,13 @@ public class PictureAdapter extends PagerAdapter {
 		this.context = context;
 		this.pictures = pictures;
 		views = new ArrayList<View>();
+		options = new DisplayImageOptions.Builder()
+				.showImageForEmptyUri(R.drawable.ic_stub)
+				.resetViewBeforeLoading().cacheOnDisc()
+				.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
+				.bitmapConfig(Bitmap.Config.RGB_565)
+				.displayer(new FadeInBitmapDisplayer(300)).build();
+
 	}
 
 	public static class ItemView {
@@ -96,28 +98,21 @@ public class PictureAdapter extends PagerAdapter {
 				.findViewById(R.id.picture_review);
 		// final Button download = (Button) imageLayout
 		// .findViewById(R.id.);
-  
+
 		final ProgressBar spinner = (ProgressBar) imageLayout
 				.findViewById(R.id.loading);
 		final Picture picture = pictures.get(position);
 
 		picture_index.setText((position + 1) + "/" + getCount());
-		DisplayImageOptions options = new DisplayImageOptions.Builder()
-				.showStubImage(R.drawable.ic_stub)
-				.bitmapConfig(Bitmap.Config.RGB_565)
-				.imageScaleType(ImageScaleType.IN_SAMPLE_INT)
-				.showImageForEmptyUri(R.drawable.ic_empty)
-				.displayer(new FadeInBitmapDisplayer(300))
-				.showImageOnFail(R.drawable.ic_error).cacheInMemory()
-				.cacheOnDisc().build();
+
 		name.setText(picture.getName());
 		review.setText(picture.getReview());
 		fileName = picture.getImage_url();
 
-//		scrollView.setShaderView(image);
-//		if (position == 1) {
-//			myViewPaper.setShaderView(image);
-//		}
+		// scrollView.setShaderView(image);
+		// if (position == 1) {
+		// myViewPaper.setShaderView(image);
+		// }
 		Log.i("pic", "pic name " + fileName);
 		Log.i("pic", "pic position" + position);
 		// image.setOnLongClickListener(new OnLongClickListener() {
@@ -134,8 +129,8 @@ public class PictureAdapter extends PagerAdapter {
 		// });
 
 		imageLoader.displayImage(
-				Constants.Image_URL_PREFIX + picture.getImage_url()
-						+ Constants.Image_URL_BACKFIX, image, options,
+				Constant.Image_URL_PREFIX + picture.getImage_url()
+						+ Constant.Image_URL_BACKFIX, image, options,
 				new SimpleImageLoadingListener() {
 					@Override
 					public void onLoadingStarted(String imageUri, View view) {
@@ -173,27 +168,28 @@ public class PictureAdapter extends PagerAdapter {
 							View view, final Bitmap loadedImage) {
 						spinner.setVisibility(View.GONE);
 						Log.i("pic", "imageUri " + imageUri);
-//						int width = DisplayUtil.getWidth();
-//						float scale = (float) width
-//								/ (float) loadedImage.getWidth();
-//						int height = (int) (loadedImage.getHeight() * scale);
+						// int width = DisplayUtil.getWidth();
+						// float scale = (float) width
+						// / (float) loadedImage.getWidth();
+						// int height = (int) (loadedImage.getHeight() * scale);
 
 						// Bitmap mBitmap =
 						// Bitmap.createScaledBitmap(loadedImage,
 						// width, height, true);
 						// image.config(loadedImage);
-//						image.setImageBitmap(loadedImage);
-//						image.setOnLongClickListener(new OnLongClickListener() {
-//
-//							@Override
-//							public boolean onLongClick(View v) {
-//								// TODO Auto-generated method stub
-//								Log.e("debug", "onLongClick");
-////								image.setShowing(true);
-//								image.invalidate();
-//								return false;
-//							}
-//						});
+						// image.setImageBitmap(loadedImage);
+						// image.setOnLongClickListener(new
+						// OnLongClickListener() {
+						//
+						// @Override
+						// public boolean onLongClick(View v) {
+						// // TODO Auto-generated method stub
+						// Log.e("debug", "onLongClick");
+						// // image.setShowing(true);
+						// image.invalidate();
+						// return false;
+						// }
+						// });
 
 						// download.setOnClickListener(new OnClickListener() {
 						// @Override
@@ -252,6 +248,14 @@ public class PictureAdapter extends PagerAdapter {
 	public boolean isViewFromObject(View view, Object object) {
 		currentView = (View) object;
 		return view.equals(object);
+	}
+
+	@Override
+	public void restoreState(Parcelable state, ClassLoader loader) {
+	}
+
+	@Override
+	public void startUpdate(View container) {
 	}
 
 	public View getCurrentView() {

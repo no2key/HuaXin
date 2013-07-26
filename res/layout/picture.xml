@@ -1,23 +1,22 @@
 <com.ht.huaxin.view.MyScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ScrollView"
+       android:background="@drawable/china_style_bg"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+    android:layout_height="fill_parent" >
 
-  
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="@android:color/white"
+         
         android:orientation="vertical"
         android:padding="0dip" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp" >
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal" >
 
             <TextView
                 android:id="@+id/author"
@@ -48,27 +47,25 @@
                 android:textSize="18sp" />
         </LinearLayout>
 
-        <ImageView
+        <com.ht.huaxin.view.ShaderView
             android:id="@+id/picture_img"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="0px"
             android:adjustViewBounds="true"
             android:contentDescription="@string/app_name"
             android:longClickable="true"
-            android:background="@drawable/b"
-            android:scaleType="centerCrop"
             android:padding="0px"
-            android:layout_margin="0px"
-             />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/picture_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/album_title"
             android:textColor="@color/fade_black"
-            android:textSize="14sp"
-            android:layout_marginTop="10dp" />
+            android:textSize="14sp" />
 
         <ProgressBar
             android:id="@+id/loading"

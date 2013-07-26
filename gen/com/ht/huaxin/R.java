@@ -40,45 +40,51 @@ public final class R {
     }
     public static final class drawable {
         public static final int album_bg=0x7f020000;
-        public static final int b=0x7f020001;
-        public static final int china_style_bg=0x7f020002;
-        public static final int ic_empty=0x7f020003;
-        public static final int ic_error=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int ic_stub=0x7f020006;
-        public static final int icon=0x7f020007;
-        public static final int list_item_bg_selector=0x7f020008;
-        public static final int panel=0x7f020009;
+        public static final int app_icon=0x7f020001;
+        public static final int b=0x7f020002;
+        public static final int china_style_bg=0x7f020003;
+        public static final int ic_empty=0x7f020004;
+        public static final int ic_error=0x7f020005;
+        public static final int ic_launcher=0x7f020006;
+        public static final int ic_stub=0x7f020007;
+        public static final int icon=0x7f020008;
+        public static final int image_for_empty_url=0x7f020009;
+        public static final int list_item_bg_selector=0x7f02000a;
+        public static final int panel=0x7f02000b;
     }
     public static final class id {
-        public static final int Layout_Img=0x7f0b0006;
-        public static final int ScrollView=0x7f0b000a;
-        public static final int action_settings=0x7f0b0010;
-        public static final int album_intro=0x7f0b0008;
-        public static final int album_pager=0x7f0b0000;
-        public static final int album_title=0x7f0b0003;
-        public static final int albums=0x7f0b0001;
-        public static final int author=0x7f0b000b;
-        public static final int create_time=0x7f0b0004;
-        public static final int linearLayout1=0x7f0b0002;
-        public static final int linearLayout2=0x7f0b0009;
-        public static final int loading=0x7f0b000f;
-        public static final int picture_count=0x7f0b0005;
-        public static final int picture_img=0x7f0b0007;
-        public static final int picture_index=0x7f0b000d;
-        public static final int picture_name=0x7f0b000c;
-        public static final int picture_review=0x7f0b000e;
+        public static final int Layout_Img=0x7f0b0007;
+        public static final int ScrollView=0x7f0b000d;
+        public static final int action_settings=0x7f0b0012;
+        public static final int album_intro=0x7f0b0009;
+        public static final int album_pager=0x7f0b0001;
+        public static final int album_title=0x7f0b0004;
+        public static final int albums=0x7f0b0002;
+        public static final int author=0x7f0b000e;
+        public static final int create_time=0x7f0b0005;
+        public static final int image=0x7f0b000b;
+        public static final int linearLayout1=0x7f0b0003;
+        public static final int linearLayout2=0x7f0b000a;
+        public static final int loading=0x7f0b000c;
+        public static final int pager=0x7f0b0000;
+        public static final int picture_count=0x7f0b0006;
+        public static final int picture_img=0x7f0b0008;
+        public static final int picture_index=0x7f0b0010;
+        public static final int picture_name=0x7f0b000f;
+        public static final int picture_review=0x7f0b0011;
     }
     public static final class integer {
         public static final int config_slide_time=0x7f050000;
     }
     public static final class layout {
-        public static final int activity_album=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int album=0x7f030002;
-        public static final int album_back=0x7f030003;
-        public static final int panel_bg=0x7f030004;
-        public static final int picture=0x7f030005;
+        public static final int ac_image_pager=0x7f030000;
+        public static final int activity_album=0x7f030001;
+        public static final int activity_main=0x7f030002;
+        public static final int album=0x7f030003;
+        public static final int album_back=0x7f030004;
+        public static final int item_pager_image=0x7f030005;
+        public static final int panel_bg=0x7f030006;
+        public static final int picture=0x7f030007;
     }
     public static final class menu {
         public static final int album=0x7f0a0000;

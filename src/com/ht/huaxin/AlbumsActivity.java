@@ -27,9 +27,10 @@ import com.google.gson.reflect.TypeToken;
 import com.ht.huaxin.database.dao.OrmDateBaseHelper;
 import com.ht.huaxin.database.dao.interfaze.AlbumDao;
 import com.ht.huaxin.entity.Album;
+import com.ht.huaxin.entity.Picture;
 import com.ht.huaxin.http.HttpUtils;
 import com.ht.huaxin.image.DisplayUtil;
-import com.ht.huaxin.utils.Constants;
+import com.ht.huaxin.utils.Constant;
 
 public class AlbumsActivity extends CommonActivity implements Callback {
 	ListView albumsView;
@@ -91,10 +92,10 @@ public class AlbumsActivity extends CommonActivity implements Callback {
 			Album album = (Album) parent.getItemAtPosition(position);
 
 			Intent intent = new Intent(AlbumsActivity.this,
-					PictureActivity.class);
-			intent.putExtra(Constants.EXTRA_Album_id,
+					MyPictureActivity.class);
+			intent.putExtra(Constant.EXTRA_Album_id,
 					String.valueOf(album.getId()));
-			intent.putExtra(Constants.EXTRA_Album_title,
+			intent.putExtra(Constant.EXTRA_Album_title,
 					String.valueOf(album.getTitle()));
 			startActivity(intent);
 		}
@@ -109,7 +110,7 @@ public class AlbumsActivity extends CommonActivity implements Callback {
 	class AlbumsLoadThread implements Runnable {
 		public void run() {
 			try {
-				String url = Constants.ALBUM_URL_PREFIX;
+				String url = Constant.ALBUM_URL_PREFIX;
 				JSONObject json = HttpUtils.get(url);
 				JSONArray jsonArray = json.getJSONArray("entries");
 				Type type = new TypeToken<List<Album>>() {
@@ -133,7 +134,6 @@ public class AlbumsActivity extends CommonActivity implements Callback {
 
 	@Override
 	public boolean handleMessage(Message msg) {
-
 		int what = msg.what;
 		List<Album> albums;
 		switch (what) {
@@ -143,12 +143,12 @@ public class AlbumsActivity extends CommonActivity implements Callback {
 
 			albumsAdapter.setAlbums(albums);
 			albumsAdapter.notifyDataSetChanged();
-//			albumDao.batchInsert(albums);
-			break;
+			// albumDao.batchInsert(albums);
+			break; 
 
 		case MSG_GET_LOCAL:
 			Log.e("debug", "local");
-			albums = (List<Album>) msg.obj;
+			albums = (List<Album>) msg.obj;  
 			albumsAdapter.setAlbums(albums);
 			albumsAdapter.notifyDataSetChanged();
 			break;

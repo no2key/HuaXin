@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +17,7 @@ import android.widget.Toast;
 import com.cuubonandroid.sugaredlistanimations.GPlusListAdapter;
 import com.cuubonandroid.sugaredlistanimations.SpeedScrollListener;
 import com.ht.huaxin.entity.Album;
-import com.ht.huaxin.utils.Constants;
+import com.ht.huaxin.utils.Constant;
 import com.ht.huaxin.utils.UIHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -158,7 +159,7 @@ public class AlbumsAdapter extends GPlusListAdapter {
 
 		final Album album = albums.get(position);
 
-		ItemView buffer = (ItemView) view.getTag();
+	final 	ItemView buffer = (ItemView) view.getTag();
 		buffer.album_title.setText(album.getTitle());
 		buffer.create_time.setText(UIHelper.getYearFromThen(album
 				.getAuthor_intro()));
@@ -173,8 +174,8 @@ public class AlbumsAdapter extends GPlusListAdapter {
 				.cacheOnDisc().build();
 
 		imageLoader.displayImage(
-				Constants.Image_URL_PREFIX + album.getProfile_img_url()
-						+ Constants.Image_PNG_URL_BACKFIX,
+				Constant.Image_URL_PREFIX + album.getProfile_img_url()
+						+ Constant.Image_PNG_URL_BACKFIX,
 				buffer.profile_image, options,
 				new SimpleImageLoadingListener() {
 					@Override
@@ -210,6 +211,10 @@ public class AlbumsAdapter extends GPlusListAdapter {
 					@Override
 					public void onLoadingComplete(final String imageUri,
 							View view, final Bitmap loadedImage) {
+					LayoutParams lp=	buffer.profile_image.getLayoutParams();
+					lp.height=loadedImage.getHeight();
+					buffer.profile_image.setLayoutParams(lp);
+					
 					}
 				});
 
